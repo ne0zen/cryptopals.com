@@ -10,8 +10,6 @@ UPPERCASE_LETTERS = bytes(string.ascii_uppercase, 'ascii')
 ALPHABET_LEN = 26
 
 
-cipher = bytes.fromhex("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
-
 def score(stream):
     upper_stream = stream.upper()
 
@@ -28,5 +26,8 @@ def xor_single(cipher, key):
         stream[pos] = msg_byte ^ key & 0xFF
     return stream
 
-## find max score, print decoded (doesn't keep key)
-print(max((xor_single(cipher, key) for key in range(ord('A'), ord('z'))), key=score).decode())
+
+if __name__ == '__main__':
+    cipher = bytes.fromhex("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
+    ## find max score, print decoded (doesn't keep key)
+    print(max((xor_single(cipher, key) for key in range(ord('A'), ord('z'))), key=score).decode())
