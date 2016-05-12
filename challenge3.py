@@ -21,19 +21,12 @@ def score(stream):
 
     return 1 / abs(EXPECTED_IC - index_of_coincidence) # something to maximize
 
-## find max score
-best_max = 0
-best_key = None
-msg = None
-for key in range(0, 255):
+
+def xor_single(cipher, key):
     stream = bytearray(len(cipher))
     for pos, msg_byte in enumerate(cipher):
         stream[pos] = msg_byte ^ key & 0xFF
-    candidate = score(stream)
+    return stream
 
-    if candidate > best_max:
-        best_key = key
-        msg = stream
-        best_max = candidate
-
-print("key:", best_key, "score:", best_max, "msg:", msg.decode())
+## find max score, print decoded (doesn't keep key)
+print(max((xor_single(cipher, key) for key in range(ord('A'), ord('z'))), key=score).decode())
