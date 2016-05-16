@@ -27,7 +27,12 @@ def xor_single(cipher, key):
     return stream
 
 
+def find_key_solved(cipher, keyspace=range(ord('0'), ord('z'))):
+    return max([(key, xor_single(cipher, key)) for key in keyspace], key=lambda t: score(t[1]))
+
+
 if __name__ == '__main__':
     cipher = bytes.fromhex("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
     ## find max score, print decoded (doesn't keep key)
-    print(max((xor_single(cipher, key) for key in range(ord('A'), ord('z'))), key=score).decode())
+    key, solved = find_key_solved(cipher)
+    print(key, solved.decode())
