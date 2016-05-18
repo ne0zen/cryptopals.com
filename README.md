@@ -19,7 +19,7 @@ Though I'm intrigued by the promise of that framework.
 For now, Tests can be run by
 
 ```
-python3 -m doctest challengeX.py
+python3 -m doctest challengeX.py -v
 ```
 Where `X` stands for the relevant challenge number.
 
