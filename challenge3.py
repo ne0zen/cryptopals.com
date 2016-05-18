@@ -48,7 +48,7 @@ def score(stream):
 
 
 def xor_single(key, cipher):
-    assert len(key) == 1, "key should be a single byte/int"
+    assert 0 <= key <= 256, "key should be a single byte"
     stream = bytearray(len(cipher))
     for pos, msg_byte in enumerate(cipher):
         stream[pos] = msg_byte ^ key
