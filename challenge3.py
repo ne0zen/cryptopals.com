@@ -2,7 +2,6 @@
 
 import string
 
-from util import hex2base64, fixed_xor
 
 # constants
 EXPECTED_IC = 1.73
