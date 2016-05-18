@@ -2,38 +2,37 @@
 
 import string
 
-
-# source: Gaines. Cryptanalysis ISBN-13: 978-0-486-20097-2, Appendix
+# source: https://en.wikipedia.org/wiki/Letter_frequency#Relative_frequencies_of_letters_in_the_English_language
 FREQUENCY_BY_CHAR = {
-    b'A': .0781,
-    b'B': .0128,
-    b'C': .0293,
-    b'D': .0411,
-    b'E': .1305,
-    b'F': .0288,
-    b'G': .0139,
-    b'H': .0585,
-    b'I': .0677,
-    b'J': .0023,
-    b'K': .0042,
-    b'L': .0360,
-    b'M': .0262,
-    b'N': .0728,
-    b'O': .0821,
-    b'P': .0216,
-    b'Q': .0014,
-    b'R': .0664,
-    b'S': .0646,
-    b'T': .0902,
-    b'U': .0277,
-    b'V': .01,
-    b'W': .0149,
-    b'X': .0030,
-    b'Y': .0151,
-    b'Z': .0009,
-    b' ': .2,
+    b'A': 0.08167,
+    b'B': 0.01492,
+    b'C': 0.02782,
+    b'D': 0.04253,
+    b'E': 0.12702,
+    b'F': 0.02228,
+    b'G': 0.02015,
+    b'H': 0.06094,
+    b'I': 0.06966,
+    b'J': 0.00153,
+    b'K': 0.00772,
+    b'L': 0.04025,
+    b'M': 0.02406,
+    b'N': 0.06749,
+    b'O': 0.07507,
+    b'P': 0.01929,
+    b'Q': 0.00095,
+    b'R': 0.05987,
+    b'S': 0.06327,
+    b'T': 0.09056,
+    b'U': 0.02758,
+    b'V': 0.00978,
+    b'W': 0.02361,
+    b'X': 0.0015,
+    b'Y': 0.01974,
+    b'Z': 0.00074,
+    b' ': 0.20000
 }
-DEFAULT_KEYSPACE = range(ord('0'), ord('z'))
+DEFAULT_KEYSPACE = bytes(string.printable, 'ascii')
 
 
 def score(stream):
