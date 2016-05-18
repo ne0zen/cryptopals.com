@@ -39,11 +39,13 @@ def score(stream):
     """
     sigma(diff_from_freq ** 2), you want to minimize this to ensure english text
     """
-    upper = stream.upper()
-    def freq_diff_squared(char):
-        return (FREQUENCY_BY_CHAR[char] - (upper.count(char)/len(upper))) ** 2
-    #print(bytes(FREQUENCY_BY_CHAR.keys()))
-    return sum(freq_diff_squared(c) for c in FREQUENCY_BY_CHAR.keys())
+    # upper case
+    normalized = stream.upper()
+    def num_diff_squared(char):
+        return (FREQUENCY_BY_CHAR[char] * len(normalized) - (normalized.count(char))) ** 2
+    sum_of_squares = round(sum(num_diff_squared(c) for c in FREQUENCY_BY_CHAR.keys()), 4)
+
+    return sum_of_squares
 
 
 def xor_single(key, cipher):
