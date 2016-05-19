@@ -1,7 +1,7 @@
 My (WIP) solutions to the Matasano/Cryptopals Crypto Challenges.
 
-More details at https://cryptopals.com/
-Despite involvement in a couple CTFs I'm not really extremely well versed in anything like modern Crypto.
+More details at https://cryptopals.com/<br/>
+Despite involvement in a couple CTFs and an interest in old ciphers, I'm not well-versed in modern crypto let alone in attacking it.  I'm hoping that changes after this journey.
 
 # Execution
 Most solutions can be executed by treating them as executables
