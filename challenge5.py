@@ -19,4 +19,4 @@ def repeating_xor(key, stream):
         result[i] = m ^ key[key_idx]
         key_idx = (key_idx + 1) % key_len
 
-    return result
+    return bytes(result)
