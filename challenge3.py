@@ -2,7 +2,8 @@
 
 import string
 
-# source: https://en.wikipedia.org/wiki/Letter_frequency#Relative_frequencies_of_letters_in_the_English_language
+# source:
+# https://en.wikipedia.org/wiki/Letter_frequency#Relative_frequencies_of_letters_in_the_English_language
 FREQUENCY_BY_CHAR = {
     b'A': 0.08167,
     b'B': 0.01492,
@@ -37,12 +38,15 @@ DEFAULT_KEYSPACE = bytes(string.printable, 'ascii')
 
 def score(stream):
     """
-    sigma(diff_from_freq ** 2), you want to minimize this to ensure english text
+    return result: sigma(diff_from_freq ** 2),
+    you want to minimize this to ensure english text
     """
     # upper case
     normalized = stream.upper()
+
     def num_diff_squared(char):
         return (FREQUENCY_BY_CHAR[char] * len(normalized) - (normalized.count(char))) ** 2
+
     sum_of_squares = round(sum(num_diff_squared(c) for c in FREQUENCY_BY_CHAR.keys()), 4)
 
     return sum_of_squares

@@ -51,8 +51,7 @@ def find_keysize(stream):
         # div average by keysize to 'weight' the avg distance
         # so bit distances over large keysizes can be compared to small keysizes w/o bias
         weighted_hdist = sum(first_n_hamming_distances) \
-                / NUM_CHUNKS_FOR_AVG_HAMMING_DIST \
-                / keysize
+            / NUM_CHUNKS_FOR_AVG_HAMMING_DIST / keysize
         keysize_hdist_pairs.append((keysize, weighted_hdist))
         keysize += 1
 
@@ -87,7 +86,7 @@ def crack_repeating_xor(stream):
 
 # utility funcs
 
-def chunker(iterable, n, fillvalue=None): # 'grouper' from itertools docs
+def chunker(iterable, n, fillvalue=None):  # 'grouper' from itertools docs
     """
     Collect data into fixed-length chunks or blocks
     >>> list(grouper('ABCDEFG', 3, None))

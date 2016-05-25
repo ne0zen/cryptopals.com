@@ -14,12 +14,14 @@ import challenge3
 keyspace = range(ord('0'), ord('z'))
 keyspace = range(0, 256)
 
+
 def getLines(fname):
     with open(fname, 'rt') as f:
         for line in f:
             yield bytes.fromhex(line.strip())
 
-if __name__  == '__main__':
+
+if __name__ == '__main__':
     lines = getLines('4.txt')
     best_score = 99999999
     best_solve = None
@@ -33,7 +35,7 @@ if __name__  == '__main__':
             if score < best_score:
                 try:
                     decoded = solved.decode()
-                    #print(line_no, key, score, decoded)
+                    # print(line_no, key, score, decoded)
                     best_key = key
                     best_solve = decoded
                     best_score = score

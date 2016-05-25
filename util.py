@@ -3,7 +3,6 @@
 import binascii
 import base64
 
-unhex = binascii.unhexlify
 
 def hex2base64(stream):
     """

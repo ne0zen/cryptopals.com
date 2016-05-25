@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
+
 def get_streams(fname):
     with open(fname, 'rt') as f:
         for line in f:
             yield bytes.fromhex(line.strip())
+
 
 def find_repeat(stream, chunk_size=16):
     """
