@@ -49,16 +49,20 @@ def aes_ecb_decrypt(key, stream):
     return cipher.decrypt(stream)
 
 
+# TODO: these aes_cbc_* functions are quite similar
 def aes_cbc_encrypt(key, iv, stream):
     fail_msg = "stream should be a multiple of %d, size actually: %d" \
            % (BLOCK_SIZE_IN_BYTES, len(stream))
     assert len(stream) % BLOCK_SIZE_IN_BYTES == 0, fail_msg
 
-    blocks = [stream[i:i + BLOCK_SIZE_IN_BYTES] for i in range(0, len(stream), BLOCK_SIZE_IN_BYTES)]
+    blocks = block_split(stream)
+
     result = []
     for idx, pt_block in enumerate(blocks):
         last_block = iv if idx == 0 else result[-1]
 
+        # pad block if its too small...
+        # TODO: should only be needed on the last block
         if len(pt_block) < BLOCK_SIZE_IN_BYTES:
             pt_block = pkcs7_pad(pt_block, BLOCK_SIZE_IN_BYTES)
 
@@ -73,7 +77,7 @@ def aes_cbc_decrypt(key, iv, stream):
            % (BLOCK_SIZE_IN_BYTES, len(stream))
     assert len(stream) % BLOCK_SIZE_IN_BYTES == 0, fail_msg
 
-    blocks = [stream[i:i + BLOCK_SIZE_IN_BYTES] for i in range(0, len(stream), BLOCK_SIZE_IN_BYTES)]
+    blocks = block_split(stream)
 
     last_block = None
     result = []
@@ -86,6 +90,15 @@ def aes_cbc_decrypt(key, iv, stream):
         result.append(pt_block)
 
     return bytes().join(result)
+
+
+def block_split(stream, block_size=BLOCK_SIZE_IN_BYTES):
+    """
+    split a strem into a list of blocks of size block_size
+    """
+    # TODO: this could possibly be a generator
+    return [stream[i:i + BLOCK_SIZE_IN_BYTES]
+            for i in range(0, len(stream), BLOCK_SIZE_IN_BYTES)]
 
 
 if __name__ == '__main__':
