@@ -89,7 +89,7 @@ def crack_repeating_xor(stream):
 def chunker(iterable, n, fillvalue=None):  # 'grouper' from itertools docs
     """
     Collect data into fixed-length chunks or blocks
-    >>> list(grouper('ABCDEFG', 3, None))
+    >>> list(chunker('ABCDEFG', 3, None))
     [('A', 'B', 'C'), ('D', 'E', 'F'), ('G', None, None)]
     """
     args = [iter(iterable)] * n
