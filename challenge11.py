@@ -55,7 +55,7 @@ def gen_random_key(size=AES.block_size):
     return os.urandom(size)
 
 
-def encryption_oracle(msg=b"thing thing thing thing thing", mode_string="ECB"):
+def encryption_oracle(msg=b"thing " * AES.block_size * 200, mode_string="ECB"):
     assert mode_string in MODE_CHOICES, "unknown mode_string: '%s'" % mode_string
 
     prefix = os.urandom(RANDOM.randint(5, 10))
@@ -68,25 +68,31 @@ def encryption_oracle(msg=b"thing thing thing thing thing", mode_string="ECB"):
         iv = gen_random_key()
     elif mode_string == 'CBC':
         mode = AES.MODE_CBC
-        iv = bytes(AES.block_size)
+        iv = os.urandom(AES.block_size)
     key = gen_random_key()
 
     return AES.new(key, IV=iv, mode=mode).encrypt(stream)
 
 
 def aes_mode_detect(stream):
-    if find_repeat(stream):
+    if find_repeat(stream, AES.block_size):
         return "ECB"
     else:
         return "CBC"
 
 
 if __name__ == '__main__':
-    for i in range(10):
+    wrong_count = 0
+    num_trials = 44
+    for i in range(num_trials):
         real_mode = RANDOM.choice(MODE_CHOICES)
-        detected_mode = aes_mode_detect(encryption_oracle(mode_string=real_mode))
+        cipher_text = encryption_oracle(mode_string=real_mode)
+        detected_mode = aes_mode_detect(cipher_text)
         print(
                 "try #" + str(i), ", real_mode:", real_mode,
-                "detected_mode: ", detected_mode,
+                "detected_mode:", detected_mode,
                 "correct?", real_mode == detected_mode
         )
+        if not real_mode == detected_mode:
+            wrong_count += 1
+    print("wrong percentage:", wrong_count / 50 * 100, '%')
